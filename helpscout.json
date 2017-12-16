@@ -1,0 +1,274 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is an OpenAPI adaptor for Helpscout!",
+        "version": "v1",
+        "title": "Helpscout Helpdesk API",
+        "contact": {
+            "email": "hayden@baratza.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://github.com/swagger-api/swagger-ui/blob/master/LICENSE"
+        }
+    },
+    "host": "api.helpscout.net",
+    "basePath": "/v1",
+    "produces": [
+        "application/json"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/customers.json": {
+            "get": {
+                "summary": "List Customers",
+                "description": "returns list of customers",
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "firstName",
+                        "type": "string",
+                        "required": false,
+                        "description": "Customer First Name"
+                    },
+                    {
+                        "in": "query",
+                        "name": "lastName",
+                        "type": "string",
+                        "required": false,
+                        "description": "Customer Last Name"
+                    },
+                    {
+                        "in": "query",
+                        "name": "email",
+                        "type": "string",
+                        "required": false
+                    },
+                    {
+                        "in": "query",
+                        "name": "modifiedSince",
+                        "type": "string",
+                        "format": "date-time",
+                        "required": false
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "type": "integer",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "page": {
+                                    "type": "integer",
+                                    "description": "Current page that was passed on in the request"
+                                },
+                                "pages": {
+                                    "type": "integer",
+                                    "description": "Total number of pages available"
+                                },
+                                "count": {
+                                    "type": "integer",
+                                    "description": "Total number of objects available"
+                                },
+                                "items": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Customer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Customer": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Unique Identifier"
+                },
+                "firstName": {
+                    "type": "string",
+                    "description": "First Name"
+                },
+                "lastName": {
+                    "type": "string",
+                    "description": "Last Name"
+                },
+                "photoUrl": {
+                    "type": "string",
+                    "description": "Profile Photo URL"
+                },
+                "photoType": {
+                    "type": "string",
+                    "description": "Type of photo"
+                },
+                "gender": {
+                    "type": "string",
+                    "description": "Gender of this customer. Possible values include; male, female, unknown"
+                },
+                "age": {
+                    "type": "string",
+                    "description": "Age of this customer"
+                },
+                "organization": {
+                    "type": "string",
+                    "description": "This customer's company"
+                },
+                "jobTitle": {
+                    "type": "string",
+                    "description": "Job Title"
+                },
+                "location": {
+                    "type": "string",
+                    "description": "Customer's location"
+                },
+                "createdAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "UTC time when this customer was created."
+                },
+                "modifiedAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "UTC time when this customer was modified."
+                }
+            }
+        },
+        "CustomerAddress": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Unique Identifier"
+                },
+                "lines": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "city": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "postalCode": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "UTC time when this address was created."
+                },
+                "modifiedAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "UTC time when this address was modified."
+                }
+            }
+        },
+        "CustomerChat": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Unique Identifier"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "chat type"
+                }
+            }
+        },
+        "CustomerEmail": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Unique Identifier"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                }
+            }
+        },
+        "CustomerPhone": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Unique Identifier"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                }
+            }
+        },
+        "CustomerSocialProfile": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Unique Identifier"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "CustomerWebsite": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "Unique Identifier"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "basicAuth": {
+            "type": "basic"
+        }
+    }
+}
